@@ -1,0 +1,29 @@
+<dom-module id="todo-input">
+    <style>
+        :host {
+            display: block;
+            margin: 0 10px;
+        }
+
+        paper-input {
+            margin-top: -4px;
+            --paper-input-container-input: {
+                font-family: 'Roboto Slab';
+                font-size: 18px;
+                text-overflow: ellipsis;
+                color: #000000;
+            };
+        }
+    </style>
+    <template>
+        <div class="layout horizontal">
+            <template is="dom-if" if="{{simple}}">
+                <paper-input class="flex"
+                             value="{{inputValue}}"
+                             no-label-float
+                             on-keypress="checkConfirmation"></paper-input>
+                <paper-button on-tap="onAddTodo">Add</paper-button>
+            </template>
+        </div>
+    </template>
+</dom-module>

@@ -1,0 +1,18 @@
+<!--
+  Copyright (c) 2015, Vimalraj. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="todo-view">
+    <style>
+        :host{
+            display: block;
+        }
+
+    </style>
+    <template>
+        <todo-data id="todo-data" location="https://dairyapp.firebaseio.com/todo" todos="{{todos}}" worker="{{worker}}"></todo-data>
+        <todo-list todos="{{todos}}" on-delete-todo="onDeleteTodo" on-update-todo="onUpdateTodo"></todo-list>
+        <todo-input simple on-add-todo="onAddTodo"></todo-input>
+    </template>
+</dom-module>

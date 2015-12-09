@@ -1,0 +1,67 @@
+<!--
+  Copyright (c) 2015, Vimalraj. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+
+<dom-module id="todo-menu">
+    <style>
+        :host {
+            display: block;
+        }
+        paper-icon-button {
+            width: 32px;
+            height: 32px;
+            padding: 0 4px;
+        }
+        paper-menu-button{
+            padding: 0;
+        }
+        paper-button.small {
+            padding: 4px;
+            min-width: 0;
+        }
+
+        paper-item.no-focus{
+        --paper-item-focused-before: {
+            content: '';
+            opacity: 0;
+        };
+        }
+
+        iron-icon.priority.high{
+            color: #E53935;
+        }
+
+        iron-icon.priority.medium{
+            color: #FF9800;
+        }
+
+        iron-icon.priority.low{
+            color: #FDD835;
+        }
+    </style>
+    <template>
+        <paper-menu-button no-animations horizontal-align="right">
+            <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+            <div class="dropdown-content layout vertical">
+                <paper-item id="edit-date">Edit Dates</paper-item>
+                <paper-item id="edi-priority" class="no-focus">
+                    <paper-item-body class="layout horizontal">
+                        <paper-button class="small" title="High">
+                            <iron-icon icon="flag" class="priority high"></iron-icon>
+                        </paper-button>
+                        <paper-button class="small" title="Medium">
+                            <iron-icon icon="flag" class="priority medium"></iron-icon>
+                        </paper-button>
+                        <paper-button class="small" title="Low">
+                            <iron-icon icon="flag" class="priority low"></iron-icon>
+                        </paper-button>
+                    </paper-item-body>
+                </paper-item>
+                <paper-item id="move-to-project">Move to Project</paper-item>
+                <paper-item id="delete-todo" on-tap="onTabDelete">Delete</paper-item>
+            </div>
+        </paper-menu-button>
+    </template>
+</dom-module>

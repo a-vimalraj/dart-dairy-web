@@ -1,0 +1,35 @@
+/* Copyright (c) 2015, <your name>. All rights reserved. Use of this source code */
+/* is governed by a BSD-style license that can be found in the LICENSE file. */
+
+body {
+    font-family: RobotoDraft, sans-serif;
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+}
+
+/*Custom scroll bar*/
+html /deep/ #mainContainer,html /deep/ .customScroller.y {
+    overflow-y: scroll;
+}
+
+html /deep/ .customScroller.x {
+    overflow-x: scroll;
+}
+
+html /deep/ #mainContainer::-webkit-scrollbar-track, html /deep/ .customScroller::-webkit-scrollbar-track {
+    background: #FFFFFF;
+}
+
+html /deep/ #mainContainer::-webkit-scrollbar, html /deep/ .customScroller::-webkit-scrollbar {
+    width: 0.2em;
+}
+
+/*Uncomment */
+html /deep/ #mainContainer::-webkit-scrollbar-thumb, html /deep/ .customScroller::-webkit-scrollbar-thumb {
+    background-color: #BDBDBD;
+}

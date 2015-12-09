@@ -1,0 +1,168 @@
+<!--
+  Copyright (c) 2015, Vimalraj. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../dairy_icons.html">
+<dom-module id="todo-item">
+
+    <template>
+    <style>
+        :host {
+        @apply(- -shadow-elevation-2dp);
+            display: block;
+            cursor: default;
+            outline: 0;
+        }
+
+        paper-item.task {
+            --paper-item-min-height: 32px;
+            background-color: #9E9E9E;
+        }
+
+        /*:host > div.action-contents{
+            display: none;
+        }*/
+
+        paper-icon-button {
+            width: 32px;
+            height: 32px;
+            padding: 0 4px;
+        }
+
+        :host {
+            display: block;
+            box-sizing: border-box;
+            min-height: 50px;
+        }
+        .row {
+            position: relative;
+            padding: 8px 8px 8px 14px;
+        }
+        paper-checkbox {
+            /* Checkbox has 8px of extra space on top so have to tweak it to center */
+            margin-top: -4px;
+            margin-right: 20px;
+        }
+        paper-checkbox[checked] + .label {
+            color: #9E9E9E;
+            text-decoration: line-through;
+        }
+        paper-input {
+            margin-top: -4px;
+        --paper-input-container-input: {
+             font-family: 'Roboto Slab';
+             font-size: 16px;
+             text-overflow: ellipsis;
+            color: #000000;
+             cursor: default;
+         };
+        --paper-input-container-underline: {
+             display: none;
+         };
+        }
+        .btn-menu {
+            opacity: 0;
+            /* Same as paper-material shadow */
+            /*https://github.com/PolymerElements/paper-styles/blob/master/shadow.html#L17*/
+            transition: opacity 0.28s;
+            /* Odd hack to fix cropped paper-ripple focus state */
+            /* https://github.com/PolymerElements/paper-icon-button/issues/33 */
+            font-size: 15px;
+        }
+        :host:hover .btn-menu,
+        :host([active]) .btn-menu {
+            opacity: 1;
+        }
+        :host .label{
+            display: none;
+            transition: display 0.28s;
+        }
+        :host:hover .label,
+        :host([active]) .label {
+            display: block;
+        }
+        span +span{
+            margin-left: 20px;
+        }
+        paper-input.dates{
+            max-width: 45px;
+        --paper-input-container-input: {
+             font-family: 'Roboto Slab';
+             font-size: 14px;
+             text-overflow: clip;
+             color: #000000;
+         };
+        }
+        paper-input + paper-input{
+            margin-right: 10px;
+        }
+
+        .label > div{
+            margin-left: 50px;
+        }
+        .label span{
+            font-size: 13px;
+        }
+
+
+        #priority > iron-icon.high{
+            color: #E53935;
+        }
+
+        #priority > iron-icon.medium{
+            color: #FF9800;
+        }
+
+        #priority > iron-icon.low{
+            color: #FDD835;
+        }
+
+    </style>
+        <paper-material elevation="[[computeElevation(active)]]"
+                        class="row">
+
+            <!-- Note the use of $= for aria-labelledby. This is because there's
+            no corresponding js property so we need to write a literal attribute
+            value, which is what $= does. -->
+            <div class="layout horizontal center">
+                <paper-checkbox id="checkbox"
+                            checked="{{todo.isCompleted}}"
+                            aria-labelledby$="[[_computeLabelId(todo.uid)]]"></paper-checkbox>
+
+            <paper-input id="[[_computeLabelId(todo.uid)]]"
+                         class="flex"
+                         value="{{todo.title}}"
+                         no-label-float
+                         on-keypress="checkConfirmation" on-blur="onTitleChanged"></paper-input>
+                <paper-input class="dates"
+                             title="27 Nov 2015"
+                             value="27 Nov"
+                             no-label-float></paper-input>
+                <paper-input class="dates"
+                             title="30 Nov 2015"
+                             value="30 Nov"
+                             no-label-float></paper-input>
+
+            <!--<paper-icon-button icon="more-vert"
+                               class="btn-menu"
+                               aria-label="Todo Menu"
+                               tabindex="0"
+                               on-tap="onTodoMenu">
+            </paper-icon-button>-->
+                <div id="priority">
+                    <iron-icon icon="[[computePriorityIcon(todo.priority)]]" title="[[todo.priority]]" class$="[[computePriorityClass(todo.priority)]]"></iron-icon>
+                </div>
+                <todo-menu todo="{{todo}}"></todo-menu>
+</div>
+            <div class$="[[computeLabelClass(todo.labels.length)]]">
+                <div class="layout horizontal">
+                <template is="dom-repeat" items="{{todo.labels}}" as="label" observe="todo.labels.length">
+
+                <span>{{label.name}}</span>
+                </template>
+            </div>
+            </div>
+        </paper-material>
+    </template>
+</dom-module>

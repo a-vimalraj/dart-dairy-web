@@ -1,0 +1,151 @@
+<!--
+  Copyright (c) 2015, Vimalraj. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="dairy-app">
+    <style>
+    :host {
+      display: block;
+        min-width: 400px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #E0E0E0;
+        --paper-item-icon-width: 32px;
+        --paper-input-container-color: #FFFFFF;
+        --paper-input-container-input-color: #FFFFFF;
+        --paper-toolbar-background: var(--paper-indigo-800);
+
+         }
+    #app-menu /deep/ span{
+        @apply(--paper-font-menu);
+        cursor: default;
+    }
+    paper-toolbar /deep/ #topBar{
+        @apply(--layout-flex);
+    }
+      paper-submenu /deep/ #collapse{
+          margin-left: 20px;
+      }
+        paper-input /deep/ .underline{
+            display: none;
+        }
+        paper-input#search-box{
+            padding: 0 10px;
+            margin: 0 20%;
+            background-color: var(--paper-indigo-500);
+        }
+    paper-input#search-box:hover{
+        background-color: var(--paper-indigo-400);
+    --paper-input-container-label: {
+     @apply(--paper-font-caption);
+     };
+    }
+    paper-input#search-box.short {
+        min-width: 200px;
+    }
+    paper-drawer-panel[narrow] /deep/ paper-input#search-box{
+        margin: 0;
+    }
+    paper-icon-button#search-clear-box {
+        color: var(--paper-red-300);
+        --paper-icon-button-ink-color: var(--paper-red-a100);
+        width: 23px; /* 15px + 2*4px for padding */
+        height: 24px;
+        padding: 0px 4px;
+    }
+
+    paper-tabs {
+        --paper-tabs-selection-bar-color: #3F51B5;
+    }
+    paper-tabs /deep/ #tabsContainer{
+        height: 32px;
+    }
+    paper-tab {
+        --paper-tab-ink: #5C6BC0;
+        --paper-tab-content: {
+        height: 32px;
+         };
+    height: 32px;
+    }
+
+
+/****************Paper-Dropdown hack********************/
+    #contentWrapper.iron-dropdown > *{
+        overflow: visible !important;
+    }
+    paper-menu {
+        display: block;
+    }
+  </style>
+  <template>
+    <paper-drawer-panel id="app" drawer-width="200px">
+      <paper-header-panel drawer>
+        <paper-toolbar>
+          <div style="cursor: pointer;">Dairy</div>
+        </paper-toolbar>
+        <div>
+          <paper-menu id="app-menu">
+              <paper-submenu>
+                  <paper-icon-item role="menuitem" class="menu-trigger">
+                      <iron-icon icon="dairy:tick-box" item-icon></iron-icon>
+                      <span>Todo</span>
+                  </paper-icon-item>
+                  <paper-menu class="menu-content">
+                      <paper-item><span>Next 5 days</span></paper-item>
+                      <paper-item><span>All Task</span></paper-item>
+                      <paper-item><span>Completed</span></paper-item>
+                      <paper-tabs selected="{{todoTabSelected}}" id="paper-tabs">
+                          <paper-tab>Project</paper-tab>
+                          <paper-tab>Label</paper-tab>
+                      </paper-tabs>
+                      <iron-pages selected="{{todoTabSelected}}">
+                          <div>
+                              <paper-item>Project 1</paper-item>
+                              <paper-item>Project 2</paper-item>
+                              <paper-item>Project 3</paper-item>
+                              <paper-item>Project 4</paper-item>
+                          </div>
+                          <div>
+                              <paper-item>Label 1</paper-item>
+                              <paper-item>Label 2</paper-item>
+                              <paper-item>Label 3</paper-item>
+                              <paper-item>Label 4</paper-item>
+                          </div>
+                      </iron-pages>
+                  </paper-menu>
+              </paper-submenu>
+              <paper-icon-item role="menuitem">
+                  <iron-icon icon="dairy:calendar" item-icon></iron-icon>
+                  <span>Events</span>
+              </paper-icon-item>
+              <paper-icon-item role="menuitem">
+                  <iron-icon icon="dairy:dolor" item-icon></iron-icon>
+                  <span>Finance</span>
+              </paper-icon-item>
+              <paper-icon-item role="menuitem">
+                  <iron-icon icon="icons:settings" item-icon></iron-icon>
+                  <span>Settings</span>
+              </paper-icon-item>
+        </paper-menu>
+        </div>
+      </paper-header-panel>
+      <paper-header-panel main>
+        <paper-toolbar class="layout horizontal" >
+          <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+          <paper-input class="flex short" no-label-float id="search-box" placeholder="Search">
+              <iron-icon icon="search" prefix></iron-icon>
+              <paper-icon-button suffix on-click="clearInput"
+                                 icon="clear" alt="clear" title="clear" id="search-clear-box" tabindex="0">
+              </paper-icon-button>
+          </paper-input>
+          </paper-input>
+        </paper-toolbar>
+        <div>
+            <todo-view></todo-view>
+        </div>
+      </paper-header-panel>
+    </paper-drawer-panel>
+  </template>
+</dom-module>

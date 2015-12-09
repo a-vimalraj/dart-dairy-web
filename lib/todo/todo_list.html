@@ -1,0 +1,32 @@
+<!--
+  Copyright (c) 2015, Vimalraj. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<dom-module id="todo-list">
+    <style>
+        :host {
+            display: block;
+        }
+
+        .no-more-msg {
+            margin: 100px auto;
+            width: 300px;
+            min-height: 40px;
+            font-family: 'Roboto Slab';
+            font-size: 20px;
+            color: #BDBDBD;
+            cursor: default;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+    <template>
+        <div class="no-more-msg" hidden="[[todosEmpty(todos.length)]]">No more todos! You're all caught up</div>
+        <template is="dom-repeat" items="[[todos]]" as="todo">
+            <todo-item todo="{{todo}}"></todo-item>
+        </template>
+    </template>
+</dom-module>
